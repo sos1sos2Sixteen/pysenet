@@ -2,6 +2,7 @@ import random
 import math
 from estimator import *
 
+# exponetial smoothing 
 class Exp_filter():
     def __init__(self):
         self.last_output = None
@@ -22,7 +23,7 @@ def alpha(rate, cutoff):
     te = 1.0 / rate
     return 1.0 / (1.0 + tau / te)
 
-
+# one euro filter by Casiez et al
 class Euro_filter():
     def __init__(self):
         self.min_cutoff = 0.01
