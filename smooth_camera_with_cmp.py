@@ -90,15 +90,6 @@ while True:
 
     cv2.imshow('trace',img)
 
-    # if count > 400:
-    #     count = 0
-    #     cam.set(cv2.CAP_PROP_POS_FRAMES,400)
-
-    # time.sleep(0.03)
-
-    # count += 1
-    
-
     k = cv2.waitKey(1) & 0xFF
     if k == 27:
         cam.release()
