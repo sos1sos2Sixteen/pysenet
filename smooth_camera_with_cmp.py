@@ -33,8 +33,6 @@ def change_min_cutoff(e):
 
 
 cam = None
-cam_arg = "/Users/sedecim/Desktop/83511058-1-6.mp4"
-cam_arg = "/Users/sedecim/Desktop/hfhfhf.mp4"
 cam_arg = 0
 cam = cv2.VideoCapture(cam_arg)
 
