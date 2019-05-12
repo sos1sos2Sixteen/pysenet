@@ -52,7 +52,7 @@ class Euro_filter():
         cutoff = self.min_cutoff + self.beta * abs(edx)
         # cutoff = get_cutoff(edx)
         al = alpha(rate,cutoff)
-        print((rate,cutoff,al))
+        # print((rate,cutoff,al))
         return self.xfilt.push(data, alpha(rate, cutoff))
 
 class Pose_filter():

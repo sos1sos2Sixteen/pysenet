@@ -424,6 +424,30 @@ class Estimator():
         
         if p.keypoints[5] != None:
             cv2.circle(base_img, p.keypoints[5].pos,5, (250,0,0),3)
+
+    def draw_pose_with_judgement(self, p, base_img, threshold, error_ids):
+        if p.score < threshold:
+            return
+        # random_color = (random.randint(50,250),random.randint(50,250),random.randint(50,250))
+        random_color = (0,244,289);
+        error_color = (0,0,255)
+        for key in p.keypoints:
+            if(key != None):
+                if(key.key_id in error_ids):
+                    cv2.circle(base_img, key.pos, 3, error_color, 2)
+                else:
+                    cv2.circle(base_img, key.pos, 3, random_color, 2)
+        for edge in parentChildrenTuple:
+            source = p.keypoints[edge[0]]
+            target = p.keypoints[edge[1]]
+            if source != None and target != None:
+                if source.key_id in error_ids and target.key_id in error_ids:
+                    cv2.line(base_img, source.pos, target.pos, error_color,1)
+                else:
+                    cv2.line(base_img, source.pos, target.pos, random_color,1)
+        
+        if p.keypoints[5] != None:
+            cv2.circle(base_img, p.keypoints[5].pos,5, (250,0,0),3)
     
     def draw_pose_with_ease(self, p, base_img):
         # random_color = (random.randint(50,250),random.randint(50,250),random.randint(50,250))
@@ -449,6 +473,38 @@ class Estimator():
         if p.keypoints[5] != None:
             cv2.circle(base_img, p.keypoints[5].pos,5, (250,0,0),3)
     
+    def draw_pose_with_ease_judgement(self, p, base_img, error_ids):
+        # random_color = (random.randint(50,250),random.randint(50,250),random.randint(50,250))
+        random_color = (0,244,289);
+        error_color = (255,0,0)
+        no_draw = [1,2,3,4]
+        for key in p.keypoints:
+            if(key != None):
+                if(key.key_id in no_draw):
+                    continue
+                if(key.key_id in error_ids):
+                    cv2.circle(base_img, key.pos, 3, error_color, 2)
+                else:
+                    cv2.circle(base_img, key.pos, 3, random_color, 2)
+
+        for edge in parentChildrenTuple:
+            source = p.keypoints[edge[0]]
+            target = p.keypoints[edge[1]]
+            if source != None and target != None:
+                if source.key_id in no_draw or target.key_id in no_draw:
+                    continue
+                if source.key_id in error_ids and target.key_id in error_ids:
+                    cv2.line(base_img, source.pos, target.pos, error_color,1)
+                else:
+                    cv2.line(base_img, source.pos, target.pos, random_color,1)
+        if p.keypoints[5] != None and p.keypoints[6] != None:
+            cv2.line(base_img, p.keypoints[5].pos, p.keypoints[6].pos, random_color,1)
+        if p.keypoints[12] != None and p.keypoints[11] != None:
+            cv2.line(base_img, p.keypoints[12].pos, p.keypoints[11].pos, random_color,1)
+        
+        if p.keypoints[5] != None:
+            cv2.circle(base_img, p.keypoints[5].pos,5, (250,0,0),3)
+
     def draw_poses(self,poses,base_img, threshold):
 
         for p in poses:
